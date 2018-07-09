@@ -24,7 +24,7 @@ X = [ones(m, 1) X];
 %
 % Hint: theta(:) will return a column vector.
 %
-% Hint: You can use y == c to obtain a vector of 1's and 0's that tell you
+% Hint: You can use y == k to obtain a vector of 1's and 0's that tell you
 %       whether the ground truth is true/false for this class.
 %
 % Note: For this assignment, we recommend using fmincg to optimize the cost
@@ -49,14 +49,31 @@ X = [ones(m, 1) X];
 %                 initial_theta, options);
 %
 
-
-
-
-
-
-
-
-
+     % Set Initial theta
+     initial_theta = zeros(n + 1, 1);
+     
+     % Set options for fminunc
+     options = optimset('GradObj', 'on', 'MaxIter', 50);
+ 
+     % Run fmincg to obtain the optimal theta
+     % This function will return theta and the cost 
+     
+     % Variable 'X' contains data in dimension (5000 * 400). 
+     % 5000 = Total no. of training examples, 400 = 400 pixels / training sample (digit image)
+     % Total no. Features  = 400
+     
+    for c = 1:num_labels 
+        all_theta(c,:) = fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), initial_theta, options);
+        % remember y (5000*1) is an array of labels i.e. it contains actual 
+        % digit names (y==c) will return a vector with values 0 or 1. 1 at places where y==c 
+        
+        % 't' is passed as dummy parameter which is initialized with 'initial_theta' first
+        % then subsequent values are choosen by fmincg [Note: Its not a builtin function like fminunc
+        
+        % fmincg will consider all training data having label c (1-10 note
+        % 0 is mapped to 10) and find the optimal theta vector for it (Classifying white pixels with gray pixels). same
+        % process is repeated for other classes
+    end
 
 
 

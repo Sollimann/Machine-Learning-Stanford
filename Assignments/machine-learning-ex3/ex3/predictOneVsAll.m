@@ -12,6 +12,7 @@ m = size(X, 1);
 num_labels = size(all_theta, 1);
 
 % You need to return the following variables correctly 
+% prediction
 p = zeros(size(X, 1), 1);
 
 % Add ones to the X data matrix
@@ -31,9 +32,9 @@ X = [ones(m, 1) X];
 %       
 
 
-
-
-
+% train each row for all classes and keep the label with the highest probability
+htheta =sigmoid(X * all_theta');
+[temp, p] = max(htheta, [], 2);
 
 
 % =========================================================================

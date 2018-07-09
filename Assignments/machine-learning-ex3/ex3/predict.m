@@ -21,13 +21,20 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% When you complete the code in predict.m, you will need to add the
+% column of 1’s to the matrix. This is the bias term
+X = [ones(m, 1) X];
+a1 = X;
 
+a2= sigmoid(a1 * Theta1');
 
+%add bias
+a2 = [ones(m, 1) a2];
 
-
-
-
-
+% train each row for all classes and keep the label with the highest probability
+a3 = sigmoid(a2 * Theta2');
+htheta = a3;
+[temp, p] = max(htheta, [], 2);
 
 % =========================================================================
 

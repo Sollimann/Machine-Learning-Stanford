@@ -38,15 +38,14 @@ grad = zeros(size(theta));
 
 htheta = sigmoid(X * theta);
 
-% Cost
-J = (1 / m) * sum( -y'* log(htheta) - (1-y)'* log(1-htheta));
+% Cost, as regularized. We do not add regularization for first element
+J = (1 / m) * sum( -y'* log(htheta) - (1-y)'* log(1-htheta)) + lambda / (2 * m) * sum(theta(2:end) .^ 2);
+
+% We do not add anything for j = 0
+temp = theta;
+temp(1) = 0;
 
 % Gradient
-grad = (1 / m) * sum( X .* (htheta - y));
-
-
-% =============================================================
-
-grad = grad(:);
+grad = 1 / m * (X' * (htheta - y) + lambda * temp);
 
 end
